@@ -42,8 +42,6 @@ function repeater(str, options) {
   newStr += addAndSeparateRepeat
   newStr += separator;
   answer = newStr.repeat(options.repeatTimes -1) + str + addAndSeparateRepeat;
-
-
   return answer;
 }
 
