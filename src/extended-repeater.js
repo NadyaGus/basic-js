@@ -28,14 +28,14 @@ function repeater(str, options) {
     separator = "+";
   }
   if (options.addition === undefined) {
-    addition = '';
+    addition = "";
   }
   if (additionSeparator === undefined) {
-    additionSeparator = '|';
+    additionSeparator = "|";
   }
   if (additionRepeatTimes === undefined) {
     additionRepeatTimes = 1;
-    additionSeparator = '';
+    additionSeparator = "";
   }
   let newAdd =  addition + additionSeparator;
   let addAndSeparateRepeat = newAdd.repeat(additionRepeatTimes - 1) + addition;
