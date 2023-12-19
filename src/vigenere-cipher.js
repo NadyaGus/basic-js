@@ -20,6 +20,12 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 class VigenereCipheringMachine {
+  // constructor() {
+  //   alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+  //   let matrix = [];
+  //   matrix.fill(alphabet, 0, 25).map((letter, i) => letter.slice(i).concat(letter.slice(0, i)))
+  // }
+
   encrypt() {
     throw new NotImplementedError('Not implemented');
     // remove line with error and write your code here
