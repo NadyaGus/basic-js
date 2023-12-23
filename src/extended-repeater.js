@@ -18,7 +18,6 @@ const { NotImplementedError } = require('../extensions/index.js');
 function repeater(str, options) {
   let answer = '';
   let newStr = str;
-  let repeatTimes = 1;
   let separator = options.separator;
   let addition = options.addition;
   let additionSeparator = options.additionSeparator;

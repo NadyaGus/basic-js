@@ -1,41 +1,150 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require("../extensions/index.js");
 
 /**
  * Implement class VigenereCipheringMachine that allows us to create
  * direct and reverse ciphering machines according to task description
- * 
+ *
  * @example
- * 
+ *
  * const directMachine = new VigenereCipheringMachine();
- * 
+ *
  * const reverseMachine = new VigenereCipheringMachine(false);
- * 
+ *
  * directMachine.encrypt('attack at dawn!', 'alphonse') => 'AEIHQX SX DLLU!'
- * 
+ *
  * directMachine.decrypt('AEIHQX SX DLLU!', 'alphonse') => 'ATTACK AT DAWN!'
- * 
+ *
  * reverseMachine.encrypt('attack at dawn!', 'alphonse') => '!ULLD XS XQHIEA'
- * 
+ *
  * reverseMachine.decrypt('AEIHQX SX DLLU!', 'alphonse') => '!NWAD TA KCATTA'
- * 
+ *
  */
 class VigenereCipheringMachine {
-  // constructor() {
-  //   alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-  //   let matrix = [];
-  //   matrix.fill(alphabet, 0, 25).map((letter, i) => letter.slice(i).concat(letter.slice(0, i)))
-  // }
+  alphabet = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+  ];
 
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor() {
+    this.string = null;
+    this.key = null;
   }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+
+  encrypt(string, key) {
+    if (string && key) {
+      this.string = string.toUpperCase();
+      this.key = key.toUpperCase();
+    } else {
+      throw new Error("Incorrect arguments!");
+    }
+
+    let keyString = "";
+    let keyIndex = 0;
+    for (let i = 0; keyString.length <= string.length; i += 1) {
+      if (keyIndex >= this.key.length) {
+        keyIndex = 0;
+      }
+
+      if (string[i] === " ") {
+        keyString += " ";
+        keyIndex -= 1;
+      } else {
+        keyString += `${this.key[keyIndex]}`;
+      }
+
+      keyIndex += 1;
+    }
+
+    const encryptString = [];
+    for (let i = 0; encryptString.length < string.length; i += 1) {
+      let indexOfKeyValue = this.alphabet.indexOf(keyString[i]);
+      let indexOfStringValue = this.alphabet.indexOf(this.string[i]);
+
+      let indexEncrypt = indexOfStringValue + indexOfKeyValue;
+      if (indexEncrypt >= 26) {
+        indexEncrypt = indexEncrypt % 26;
+      }
+
+      if (indexOfStringValue === -1) {
+        encryptString.push(this.string[i]);
+      } else {
+        encryptString.push(this.alphabet[indexEncrypt]);
+      }
+    }
+
+    return encryptString.join("");
+  }
+
+  decrypt(string, key) {
+    if (string && key) {
+      this.string = string.toUpperCase();
+      this.key = key.toUpperCase();
+    } else {
+      throw new Error("Incorrect arguments!");
+    }
+
+    let keyString = "";
+    let keyIndex = 0;
+    for (let i = 0; keyString.length <= string.length; i += 1) {
+      if (keyIndex >= this.key.length) {
+        keyIndex = 0;
+      }
+
+      if (string[i] === " ") {
+        keyString += " ";
+        keyIndex -= 1;
+      } else {
+        keyString += `${this.key[keyIndex]}`;
+      }
+
+      keyIndex += 1;
+    }
+
+    const encryptString = [];
+    for (let i = 0; encryptString.length < string.length; i += 1) {
+      let indexOfKeyValue = this.alphabet.indexOf(keyString[i]);
+      let indexOfStringValue = this.alphabet.indexOf(this.string[i]);
+
+      let indexEncrypt = indexOfStringValue - indexOfKeyValue;
+      if (indexEncrypt < 0) {
+        indexEncrypt = this.alphabet.length - Math.abs(indexEncrypt);
+      }
+
+      if (indexOfStringValue === -1) {
+        encryptString.push(this.string[i]);
+      } else {
+        encryptString.push(this.alphabet[indexEncrypt]);
+      }
+    }
+
+    return encryptString.join("");
   }
 }
 
 module.exports = {
-  VigenereCipheringMachine
+  VigenereCipheringMachine,
 };
