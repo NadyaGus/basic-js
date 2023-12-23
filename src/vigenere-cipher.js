@@ -49,9 +49,10 @@ class VigenereCipheringMachine {
     "Z",
   ];
 
-  constructor() {
+  constructor(reverse = true) {
     this.string = null;
     this.key = null;
+    this.reverse = reverse;
   }
 
   getKey(string, key) {
@@ -101,7 +102,7 @@ class VigenereCipheringMachine {
       }
     }
 
-    return encryptString.join("");
+    return this.reverse ? encryptString.join("") : encryptString.reverse().join("")
   }
 
   decrypt(string, key) {
@@ -124,7 +125,7 @@ class VigenereCipheringMachine {
       }
     }
 
-    return encryptString.join("");
+    return this.reverse ? encryptString.join("") : encryptString.reverse().join("")
   }
 }
 
