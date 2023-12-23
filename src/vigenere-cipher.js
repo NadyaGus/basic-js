@@ -54,7 +54,7 @@ class VigenereCipheringMachine {
     this.key = null;
   }
 
-  encrypt(string, key) {
+  getKey(string, key) {
     if (string && key) {
       this.string = string.toUpperCase();
       this.key = key.toUpperCase();
@@ -65,7 +65,7 @@ class VigenereCipheringMachine {
     let keyString = "";
     let keyIndex = 0;
     for (let i = 0; keyString.length <= string.length; i += 1) {
-      if (keyIndex >= this.key.length) {
+      if (keyIndex >= key.length) {
         keyIndex = 0;
       }
 
@@ -78,8 +78,13 @@ class VigenereCipheringMachine {
 
       keyIndex += 1;
     }
+    return keyString;
+  }
 
+  encrypt(string, key) {
     const encryptString = [];
+    const keyString = this.getKey(string, key);
+
     for (let i = 0; encryptString.length < string.length; i += 1) {
       let indexOfKeyValue = this.alphabet.indexOf(keyString[i]);
       let indexOfStringValue = this.alphabet.indexOf(this.string[i]);
@@ -100,31 +105,9 @@ class VigenereCipheringMachine {
   }
 
   decrypt(string, key) {
-    if (string && key) {
-      this.string = string.toUpperCase();
-      this.key = key.toUpperCase();
-    } else {
-      throw new Error("Incorrect arguments!");
-    }
-
-    let keyString = "";
-    let keyIndex = 0;
-    for (let i = 0; keyString.length <= string.length; i += 1) {
-      if (keyIndex >= this.key.length) {
-        keyIndex = 0;
-      }
-
-      if (string[i] === " ") {
-        keyString += " ";
-        keyIndex -= 1;
-      } else {
-        keyString += `${this.key[keyIndex]}`;
-      }
-
-      keyIndex += 1;
-    }
-
     const encryptString = [];
+    const keyString = this.getKey(string, key);
+
     for (let i = 0; encryptString.length < string.length; i += 1) {
       let indexOfKeyValue = this.alphabet.indexOf(keyString[i]);
       let indexOfStringValue = this.alphabet.indexOf(this.string[i]);
